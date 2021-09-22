@@ -7,18 +7,52 @@ totaalHoorn = 0
 totaalBollen = 0
 totaalBak = 0
 
+prijsSlagroom = 0.50
+prijsSprinkles = 0.30
+prijsCaramelSausH = 0.60
+prijsCaramelSausB = 0.90
+CaramelSausBakje = 0
+CaramelSausHoorntje = 0
+slagroom = 0
+sprinkles = 0
+
+
+def toppings():
+    while True:
+        toppingsInput = input('Wat voor topping wilt u: A) Geen, B) Slagroom, C) Sprinkels of D) Caramel Saus? ')
+        if toppingsInput == 'A':
+            return
+        elif toppingsInput == 'B':
+            global slagroom
+            slagroom = slagroom + 1
+            return 'Slagroom'
+        elif toppingsInput == 'C':
+            global sprinkles
+            sprinkles = sprinkles + 1
+            return 'Sprinkels'
+        elif toppingsInput == 'D':
+            return'Caramel'
+    
 
 def bonnetje():
     totaalPrijs = 0
     berekingBollen = totaalBollen * prijsBolletjes
     berekeningHoorn = totaalHoorn * prijsHoorn 
     berekeningBak = totaalBak * prijsBakje
-    totaalPrijs = berekeningHoorn + berekeningBak + berekingBollen
+    berekeningSlagroom = slagroom * prijsSlagroom
+    berekeningSprinkels = sprinkles * prijsSprinkles
+    berekeningCarmelH = prijsCaramelSausH * CaramelSausHoorntje
+    berekeningCarmelB = CaramelSausBakje * prijsCaramelSausB
+    totaalPrijsTop = berekeningSlagroom +  berekeningSprinkels + berekeningCarmelH + berekeningCarmelB
+    totaalPrijs = berekeningHoorn + berekeningBak + berekingBollen + totaalPrijsTop
+
     print('Bolletjes = ' + str(totaalBollen) + ' x ' + str(prijsBolletjes) + ' = '  + str(berekingBollen) )
     if totaalBak > 0:
         print('Bakjes = ' + str(totaalBak) +' x ' + str(prijsBakje) + ' = ' + str(berekeningBak))
     if totaalHoorn > 0:
         print('Hoorntjes = ' + str(totaalHoorn) + ' x ' + str(prijsHoorn)+ ' = ' + str(berekeningHoorn))
+    if slagroom > 0 or sprinkles > 0 or CaramelSausBakje > 0 or CaramelSausHoorntje > 0:
+        print('Prijs topings = ' + str(totaalPrijsTop))
     print('Prijs in totaal = ' + str(totaalPrijs))
     
 
@@ -70,10 +104,16 @@ while True:
             print('Hier us u hoorntje met ' + str(aantal) + ' bolletje(s) ')
             totaalHoorn = totaalHoorn + 1
             print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
+            topping = toppings()
+            if topping ==  'Caramel':
+                CaramelSausHoorntje = CaramelSausHoorntje + 1
         else:
             print('Hier us u bakje met ' + str(aantal) + ' bolletje(s) ')
             totaalBak = totaalBak + 1
             print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
+            topping = toppings()
+            if topping == 'Caramel':
+                CaramelSausBakje = CaramelSausBakje + 1
 
         if YesOrNoVraag('Wil u meer ijs bestellen? yes or no: '):
             print("")
