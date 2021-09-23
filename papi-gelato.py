@@ -3,18 +3,26 @@ print("Welkom bij Papi Gelato.")
 prijsBolletjes = 1.10
 prijsHoorn = 1.25
 prijsBakje = 0.75
+
 totaalHoorn = 0
 totaalBollen = 0
 totaalBak = 0
+
+allesmaken = ""
 
 prijsSlagroom = 0.50
 prijsSprinkles = 0.30
 prijsCaramelSausH = 0.60
 prijsCaramelSausB = 0.90
+prijsLiter = 9.80
+
 CaramelSausBakje = 0
 CaramelSausHoorntje = 0
 slagroom = 0
 sprinkles = 0
+
+
+totaalLiter = 0
 
 
 def toppings():
@@ -64,7 +72,7 @@ def hoeveelijs():
         else:
             print("Sorry zulke grote bakken hebben we niet!")
 
-def YesOrNoVraag(vraag, optionsTrue = ['yes','ja', 'A'], optionsFalse = ['no', 'nee', 'B']):
+def YesOrNoVraag(vraag, optionsTrue = ['yes','ja', 'A', '1'], optionsFalse = ['no', 'nee', 'B', '2']):
     while True:
         antwoord = input(vraag)
         if antwoord in optionsTrue:
@@ -88,48 +96,68 @@ def smaak(smaakvraag):
         print('Sorry dat snap ik niet...')
         return smaak(smaakvraag)
 
-while True:
-    aantal = hoeveelijs()
-    aantalbollen = aantal
-    totaalBollen = totaalBollen + aantalbollen
-    allesmaken = ""
 
-    for x in range(aantalbollen):
-        smaken = smaak('Welke smaak wilt u voor bolletje nummer '+ str(aantalbollen) + ' A) Aardbei, C) Chocolade, M) Munt of V) Vanille?: ')
-        aantalbollen = aantalbollen - 1
-        allesmaken = allesmaken + " " + smaken
-
-    if aantal >= 1 and aantal <= 3:
-        if YesOrNoVraag('Wilt u deze ' + str(aantal) +'  bolletje(s) in A) een hoorntje of B) een bakje?'):
-            print('Hier us u hoorntje met ' + str(aantal) + ' bolletje(s) ')
-            totaalHoorn = totaalHoorn + 1
-            print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
-            topping = toppings()
-            if topping ==  'Caramel':
-                CaramelSausHoorntje = CaramelSausHoorntje + 1
-        else:
+if YesOrNoVraag('Bent u 1) particulier of 2) zakelijk?: '):
+    while True:
+        aantal = hoeveelijs()
+        aantalbollen = aantal
+        totaalBollen = totaalBollen + aantalbollen
+    
+        for x in range(aantalbollen):
+            smaken = smaak('Welke smaak wilt u voor bolletje nummer '+ str(aantalbollen) + ' A) Aardbei, C) Chocolade, M) Munt of V) Vanille?: ')
+            aantalbollen = aantalbollen - 1
+            allesmaken = allesmaken + " " + smaken
+    
+        if aantal >= 1 and aantal <= 3:
+            if YesOrNoVraag('Wilt u deze ' + str(aantal) +'  bolletje(s) in A) een hoorntje of B) een bakje?'):
+                print('Hier us u hoorntje met ' + str(aantal) + ' bolletje(s) ')
+                totaalHoorn = totaalHoorn + 1
+                print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
+                topping = toppings()
+                if topping ==  'Caramel':
+                    CaramelSausHoorntje = CaramelSausHoorntje + 1
+            else:
+                print('Hier us u bakje met ' + str(aantal) + ' bolletje(s) ')
+                totaalBak = totaalBak + 1
+                print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
+                topping = toppings()
+                if topping == 'Caramel':
+                    CaramelSausBakje = CaramelSausBakje + 1
+    
+            if YesOrNoVraag('Wil u meer ijs bestellen? yes or no: '):
+                print("")
+            else:
+                bonnetje()
+                print('Bedankt en totziens!')
+                break
+    
+        elif aantal >=4:
             print('Hier us u bakje met ' + str(aantal) + ' bolletje(s) ')
             totaalBak = totaalBak + 1
             print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
             topping = toppings()
             if topping == 'Caramel':
                 CaramelSausBakje = CaramelSausBakje + 1
+    
+            if YesOrNoVraag('Wil u meer ijs bestellen? yes or no: '):
+                print("")
+            else:
+                bonnetje()
+                print('Bedankt en totziens!')
+                break
+else:
+    while True:
+        aantalLiter = int(input("Hoeveel Liter Ijs wilt u? "))
+        LiterLoop = aantalLiter
 
-        if YesOrNoVraag('Wil u meer ijs bestellen? yes or no: '):
-            print("")
-        else:
-            bonnetje()
-            print('Bedankt en totziens!')
-            break
+        for z in range(aantalLiter):
+            smaken = smaak('Welke smaak wilt u voor Liter '+ str(LiterLoop) + ' A) Aardbei, C) Chocolade, M) Munt of V) Vanille?: ')
+            LiterLoop = LiterLoop - 1
+            allesmaken = allesmaken + " " + smaken
 
-    elif aantal >=4:
-        print('Hier us u bakje met ' + str(aantal) + ' bolletje(s) ')
-        totaalBak = totaalBak + 1
-        print('de smaken die u heeft gekozen zijn smaken ' + str(allesmaken))
-
-        if YesOrNoVraag('Wil u meer ijs bestellen? yes or no: '):
-            print("")
-        else:
-            bonnetje()
-            print('Bedankt en totziens!')
-            break
+        berekeningZakelijk = aantalLiter * prijsLiter
+        btw = (berekeningZakelijk / 100) * 9
+        print('Liter =  ' + str(totaalLiter) + " x " + str(prijsLiter) + ' = ' + str(berekeningZakelijk))
+        print('BTW (9%) = ' + str(btw) )
+        print('Bedankt en totziens!')
+        break
