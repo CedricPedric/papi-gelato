@@ -1,6 +1,6 @@
 print("Welkom bij Papi Gelato.")
 
-prijsBolletjes = 1.10
+prijsBolletjes = 0.95
 prijsHoorn = 1.25
 prijsBakje = 0.75
 
@@ -80,7 +80,7 @@ def YesOrNoVraag(vraag, optionsTrue = ['yes','ja', 'A', '1'], optionsFalse = ['n
         elif antwoord in optionsFalse:
             return False
         else:
-            print('Dat begrijp ik niet')
+            print('Sorry dat is geen optie die we aanbieden...')
 
 def smaak(smaakvraag):
     inputSmaak = input(smaakvraag)
@@ -88,12 +88,10 @@ def smaak(smaakvraag):
         return 'Aardbei'
     elif inputSmaak == 'C':
         return 'Chocolade'
-    elif inputSmaak == 'M':
-        return 'Munt'
     elif inputSmaak == 'V':
         return 'Vanille'
     else:
-        print('Sorry dat snap ik niet...')
+        print('Sorry dat is geen optie die we aanbieden...')
         return smaak(smaakvraag)
 
 
@@ -104,7 +102,7 @@ if YesOrNoVraag('Bent u 1) particulier of 2) zakelijk?: '):
         totaalBollen = totaalBollen + aantalbollen
     
         for x in range(aantalbollen):
-            smaken = smaak('Welke smaak wilt u voor bolletje nummer '+ str(aantalbollen) + ' A) Aardbei, C) Chocolade, M) Munt of V) Vanille?: ')
+            smaken = smaak('Welke smaak wilt u voor bolletje nummer '+ str(aantalbollen) + ' A) Aardbei, C) Chocolade, V) Vanille?: ')
             aantalbollen = aantalbollen - 1
             allesmaken = allesmaken + " " + smaken
     
@@ -151,13 +149,13 @@ else:
         LiterLoop = aantalLiter
 
         for z in range(aantalLiter):
-            smaken = smaak('Welke smaak wilt u voor Liter '+ str(LiterLoop) + ' A) Aardbei, C) Chocolade, M) Munt of V) Vanille?: ')
+            smaken = smaak('Welke smaak wilt u voor Liter '+ str(LiterLoop) + ' A) Aardbei, C) Chocolade, of V) Vanille?: ')
             LiterLoop = LiterLoop - 1
             allesmaken = allesmaken + " " + smaken
 
         berekeningZakelijk = aantalLiter * prijsLiter
-        btw = (berekeningZakelijk / 100) * 9
+        btw = (berekeningZakelijk / 100) * 6
         print('Liter =  ' + str(totaalLiter) + " x " + str(prijsLiter) + ' = ' + str(berekeningZakelijk))
-        print('BTW (9%) = ' + str(btw) )
+        print('BTW (6%) = ' + str(btw) )
         print('Bedankt en totziens!')
         break
